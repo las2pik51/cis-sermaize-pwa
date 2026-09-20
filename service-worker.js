@@ -7,7 +7,7 @@ importScripts(
 );
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDR0s9LIoPy6Leb8uvrNEqvqb1vKC7dtsY",
+  apiKey: "AIzaSyBzxLIAJgEPS1go8gvOHGH5ZobzuHOE_58",
   authDomain: "cis-sermaize-connect.firebaseapp.com",
   projectId: "cis-sermaize-connect",
   storageBucket: "cis-sermaize-connect.firebasestorage.app",
