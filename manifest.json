@@ -1,0 +1,18 @@
+{
+  "name": "CIS SERMAIZE Connect",
+  "short_name": "CIS SERMAIZE",
+  "description": "Application de suivi du CIS SERMAIZE",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/las2pik51/cis-sermaize-icone/main/icone-cis-sermaize-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

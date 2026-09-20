@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -11,19 +11,54 @@
 
   <title>CIS SERMAIZE Connect</title>
 </head>
+<link
+  rel="manifest"
+  href="./manifest.json"
+>
+
+<link
+  rel="apple-touch-icon"
+  href="https://raw.githubusercontent.com/las2pik51/cis-sermaize-icone/main/icone-cis-sermaize-512.png"
+>
+
+<meta
+  name="theme-color"
+  content="#ffffff"
+>
 
 <body>
 
-  <h1>🚒 CIS SERMAIZE Connect</h1>
+  <h1>ðŸš’ CIS SERMAIZE Connect</h1>
 
   <p>
     PWA de test
   </p>
 
   <p>
-    Si cette page s'affiche, la première étape fonctionne.
+    Si cette page s'affiche, la premiÃ¨re Ã©tape fonctionne.
   </p>
 
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker
+        .register('./service-worker.js')
+        .then(function(registration) {
+          console.log(
+            'CIS SERMAIZE - Service Worker enregistré',
+            registration
+          );
+        })
+        .catch(function(error) {
+          console.error(
+            'CIS SERMAIZE - Erreur Service Worker',
+            error
+          );
+        });
+    });
+  }
+</script>
 </body>
 
 </html>
