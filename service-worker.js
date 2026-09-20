@@ -1,11 +1,35 @@
-﻿const CACHE_NAME = 'cis-sermaize-v1';
+﻿importScripts(
+  'https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js'
+);
+
+importScripts(
+  'https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js'
+);
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDR0s9LIoPy6Leb8uvrNEqvqb1vKC7dtsY",
+  authDomain: "cis-sermaize-connect.firebaseapp.com",
+  projectId: "cis-sermaize-connect",
+  storageBucket: "cis-sermaize-connect.firebasestorage.app",
+  messagingSenderId: "1065319931797",
+  appId: "1:1065319931797:web:5b4644a2bbcf255a38e09c"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const messaging = firebase.messaging();
 
 self.addEventListener('install', function(event) {
-  console.log('CIS SERMAIZE - Service Worker installé');
   self.skipWaiting();
 });
 
 self.addEventListener('activate', function(event) {
-  console.log('CIS SERMAIZE - Service Worker actif');
   event.waitUntil(self.clients.claim());
+});
+
+messaging.onBackgroundMessage(function(payload) {
+  console.log(
+    'CIS SERMAIZE - Background message received',
+    payload
+  );
 });
