@@ -119,12 +119,21 @@
               'FCM TOKEN:',
               token
             );
+            const params =
+  new URLSearchParams(window.location.search);
+
+const idUtilisateur =
+  params.get('id') || '';
+
+const nomUtilisateur =
+  params.get('nom') || '';
             fetch('https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec', {
   method: 'POST',
   body: JSON.stringify({
     action: 'enregistrerNotification',
     token: token,
-    utilisateur: '',
+    utilisateur:
+  idUtilisateur + ' - ' + nomUtilisateur,
     appareil: navigator.userAgent
   })
 }).catch(function(erreur) {
