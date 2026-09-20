@@ -119,6 +119,17 @@
               'FCM TOKEN:',
               token
             );
+            fetch('https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec', {
+  method: 'POST',
+  body: JSON.stringify({
+    action: 'enregistrerNotification',
+    token: token,
+    utilisateur: '',
+    appareil: navigator.userAgent
+  })
+}).catch(function(erreur) {
+  console.error('Erreur enregistrement token:', erreur);
+});
           } else {
             etat.textContent =
               'Aucun token recu.';
