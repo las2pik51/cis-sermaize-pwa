@@ -140,7 +140,9 @@ const nomUtilisateur =
 
   const urlCIS =
     'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec' +
-    '?notifications=activees';
+    '?notifications=activees' +
+    '&tokenNotification=' +
+    encodeURIComponent(token);
 
   etat.innerHTML =
     'Notifications activees.<br><br>' +
