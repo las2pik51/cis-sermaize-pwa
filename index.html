@@ -85,7 +85,130 @@
     const messaging = firebase.messaging();
   </script>
     <script>
-    document
+    const paramsPage =
+      new URLSearchParams(
+        window.location.search
+      );
+
+    const actionPage =
+      paramsPage.get('action') || '';
+
+    if (actionPage === 'desactiver') {
+
+      const boutonNotifications =
+        document.getElementById(
+          'boutonNotifications'
+        );
+
+      const etat =
+        document.getElementById(
+          'etatNotifications'
+        );
+
+      boutonNotifications.textContent =
+        '🔕 Désactiver les notifications';
+
+      boutonNotifications.addEventListener(
+        'click',
+        async function() {
+
+          try {
+
+            const registration =
+              await navigator.serviceWorker.ready;
+
+            const token =
+              await messaging.getToken({
+                vapidKey: 'BD79jJ_ZkJBKWn5JwBeJcroFAzAcODmiz8KQGNeYWM_pUe6zA91-L0gTtMeQ6OWiIVk1IXGGaWYD2mF2O__OE1M',
+                serviceWorkerRegistration:
+                  registration
+              });
+
+            if (!token) {
+              etat.textContent =
+                'Aucun token recu.';
+              return;
+            }
+
+            etat.textContent =
+              'Desactivation en cours...';
+
+            fetch(
+              'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec',
+              {
+                method: 'POST',
+                body: JSON.stringify({
+                  action:
+                    'desactiverNotification',
+                  token: token
+                })
+              }
+            )
+            .then(function(reponse) {
+              return reponse.json();
+            })
+            .then(function(resultat) {
+
+              if (
+                resultat &&
+                resultat.success
+              ) {
+
+                etat.innerHTML =
+                  'Notifications desactivees.<br><br>' +
+                  '<button id="ouvrirCIS">' +
+                  'Ouvrir CIS SERMAIZE Connect' +
+                  '</button>';
+
+                document
+                  .getElementById(
+                    'ouvrirCIS'
+                  )
+                  .addEventListener(
+                    'click',
+                    function() {
+
+                      window.location.href =
+                        'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec';
+                    }
+                  );
+
+              } else {
+
+                etat.textContent =
+                  resultat &&
+                  resultat.message
+                    ? resultat.message
+                    : 'Impossible de desactiver.';
+              }
+            })
+            .catch(function(erreur) {
+
+              console.error(
+                'Erreur desactivation:',
+                erreur
+              );
+
+              etat.textContent =
+                'Erreur pendant desactivation.';
+            });
+
+          } catch (erreur) {
+
+            console.error(
+              'Erreur notifications:',
+              erreur
+            );
+
+            etat.textContent =
+              'Erreur pendant desactivation.';
+          }
+        }
+      );
+
+    } else {
+
+document
       .getElementById('boutonNotifications')
       .addEventListener('click', async function() {
 
@@ -139,10 +262,7 @@ const nomUtilisateur =
 }).then(function() {
 
   const urlCIS =
-    'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec' +
-    '?notifications=activees' +
-    '&tokenNotification=' +
-    encodeURIComponent(token);
+    'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec';
 
   etat.innerHTML =
     'Notifications activees.<br><br>' +
@@ -185,6 +305,8 @@ const nomUtilisateur =
             'Erreur pendant activation.';
         }
       });
+
+    }
   </script>
 
 </body>
