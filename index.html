@@ -137,6 +137,7 @@
               'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec',
               {
                 method: 'POST',
+                mode: 'no-cors',
                 body: JSON.stringify({
                   action:
                     'desactiverNotification',
@@ -144,53 +145,36 @@
                 })
               }
             )
-            .then(function(reponse) {
-              return reponse.json();
-            })
-            .then(function(resultat) {
+            .then(function() {
 
-              if (
-                resultat &&
-                resultat.success
-              ) {
+              etat.innerHTML =
+                'Demande de desactivation envoyee.<br><br>' +
+                '<button id="ouvrirCIS">' +
+                'Ouvrir CIS SERMAIZE Connect' +
+                '</button>';
 
-                etat.innerHTML =
-                  'Notifications desactivees.<br><br>' +
-                  '<button id="ouvrirCIS">' +
-                  'Ouvrir CIS SERMAIZE Connect' +
-                  '</button>';
+              document
+                .getElementById(
+                  'ouvrirCIS'
+                )
+                .addEventListener(
+                  'click',
+                  function() {
 
-                document
-                  .getElementById(
-                    'ouvrirCIS'
-                  )
-                  .addEventListener(
-                    'click',
-                    function() {
-
-                      window.location.href =
-                        'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec';
-                    }
-                  );
-
-              } else {
-
-                etat.textContent =
-                  resultat &&
-                  resultat.message
-                    ? resultat.message
-                    : 'Impossible de desactiver.';
-              }
+                    window.location.href =
+                      'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec';
+                  }
+                );
             })
             .catch(function(erreur) {
 
               console.error(
-                'Erreur desactivation:',
+                'Erreur envoi desactivation:',
                 erreur
               );
 
               etat.textContent =
-                'Erreur pendant desactivation.';
+                'Erreur pendant envoi.';
             });
 
           } catch (erreur) {
