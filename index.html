@@ -142,7 +142,20 @@ const nomUtilisateur =
     'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec' +
     '?notifications=activees';
 
-  window.location.href = urlCIS;
+  etat.innerHTML =
+    'Notifications activees.<br><br>' +
+    '<button id="ouvrirCIS">' +
+    'Ouvrir CIS SERMAIZE Connect' +
+    '</button>';
+
+  document
+    .getElementById('ouvrirCIS')
+    .addEventListener(
+      'click',
+      function() {
+        window.location.href = urlCIS;
+      }
+    );
 
 }).catch(function(erreur) {
 
