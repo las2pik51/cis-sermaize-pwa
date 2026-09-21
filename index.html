@@ -136,8 +136,24 @@ const nomUtilisateur =
   idUtilisateur + ' - ' + nomUtilisateur,
     appareil: navigator.userAgent
   })
+}).then(function() {
+
+  const urlCIS =
+    'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec' +
+    '?notifications=activees';
+
+  window.location.href = urlCIS;
+
 }).catch(function(erreur) {
-  console.error('Erreur enregistrement token:', erreur);
+
+  console.error(
+    'Erreur enregistrement token:',
+    erreur
+  );
+
+  etat.textContent =
+    'Erreur pendant enregistrement.';
+
 });
           } else {
             etat.textContent =
