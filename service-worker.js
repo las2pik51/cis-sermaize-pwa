@@ -33,17 +33,3 @@ messaging.onBackgroundMessage(function(payload) {
     payload
   );
 });
-self.addEventListener(
-  'notificationclick',
-  function(event) {
-
-    event.notification.close();
-
-    const urlCIS =
-      'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec';
-
-    event.waitUntil(
-      clients.openWindow(urlCIS)
-    );
-  }
-);
