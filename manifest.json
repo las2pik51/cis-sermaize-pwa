@@ -9,8 +9,8 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/las2pik51/cis-sermaize-icone/main/icone-cis-sermaize-512.png",
-      "sizes": "512x512",
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
     }
