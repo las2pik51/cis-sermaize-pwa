@@ -85,114 +85,7 @@
     const messaging = firebase.messaging();
   </script>
     <script>
-    const paramsPage =
-      new URLSearchParams(
-        window.location.search
-      );
-
-    const actionPage =
-      paramsPage.get('action') || '';
-
-    if (actionPage === 'desactiver') {
-
-      const boutonNotifications =
-        document.getElementById(
-          'boutonNotifications'
-        );
-
-      const etat =
-        document.getElementById(
-          'etatNotifications'
-        );
-
-      boutonNotifications.textContent =
-        '🔕 Désactiver les notifications';
-
-      boutonNotifications.addEventListener(
-        'click',
-        async function() {
-
-          try {
-
-            const registration =
-              await navigator.serviceWorker.ready;
-
-            const token =
-              await messaging.getToken({
-                vapidKey: 'BD79jJ_ZkJBKWn5JwBeJcroFAzAcODmiz8KQGNeYWM_pUe6zA91-L0gTtMeQ6OWiIVk1IXGGaWYD2mF2O__OE1M',
-                serviceWorkerRegistration:
-                  registration
-              });
-
-            if (!token) {
-              etat.textContent =
-                'Aucun token recu.';
-              return;
-            }
-
-            etat.textContent =
-              'Desactivation en cours...';
-
-            fetch(
-              'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec',
-              {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({
-                  action:
-                    'desactiverNotification',
-                  token: token
-                })
-              }
-            )
-            .then(function() {
-
-              etat.innerHTML =
-                'Demande de desactivation envoyee.<br><br>' +
-                '<button id="ouvrirCIS">' +
-                'Ouvrir CIS SERMAIZE Connect' +
-                '</button>';
-
-              document
-                .getElementById(
-                  'ouvrirCIS'
-                )
-                .addEventListener(
-                  'click',
-                  function() {
-
-                    window.location.href =
-                      'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec';
-                  }
-                );
-            })
-            .catch(function(erreur) {
-
-              console.error(
-                'Erreur envoi desactivation:',
-                erreur
-              );
-
-              etat.textContent =
-                'Erreur pendant envoi.';
-            });
-
-          } catch (erreur) {
-
-            console.error(
-              'Erreur notifications:',
-              erreur
-            );
-
-            etat.textContent =
-              'Erreur pendant desactivation.';
-          }
-        }
-      );
-
-    } else {
-
-document
+    document
       .getElementById('boutonNotifications')
       .addEventListener('click', async function() {
 
@@ -236,7 +129,6 @@ const nomUtilisateur =
   params.get('nom') || '';
             fetch('https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec', {
   method: 'POST',
-  mode: 'no-cors',
   body: JSON.stringify({
     action: 'enregistrerNotification',
     token: token,
@@ -244,36 +136,8 @@ const nomUtilisateur =
   idUtilisateur + ' - ' + nomUtilisateur,
     appareil: navigator.userAgent
   })
-}).then(function() {
-
-  const urlCIS =
-    'https://script.google.com/macros/s/AKfycbzClJ-siED0JMrCguhbt8VZs-zuBIQb19f_KeYSwee-bWweA8BAI47d92W5eLGZ96dvkA/exec';
-
-  etat.innerHTML =
-    'Notifications activees.<br><br>' +
-    '<button id="ouvrirCIS">' +
-    'Ouvrir CIS SERMAIZE Connect' +
-    '</button>';
-
-  document
-    .getElementById('ouvrirCIS')
-    .addEventListener(
-      'click',
-      function() {
-        window.location.href = urlCIS;
-      }
-    );
-
 }).catch(function(erreur) {
-
-  console.error(
-    'Erreur enregistrement token:',
-    erreur
-  );
-
-  etat.textContent =
-    'Erreur pendant enregistrement.';
-
+  console.error('Erreur enregistrement token:', erreur);
 });
           } else {
             etat.textContent =
@@ -290,8 +154,6 @@ const nomUtilisateur =
             'Erreur pendant activation.';
         }
       });
-
-    }
   </script>
 
 </body>
